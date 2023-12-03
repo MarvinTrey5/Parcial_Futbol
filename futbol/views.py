@@ -9,6 +9,8 @@ from .models import Equipos, Jugadores, Noticias
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required,user_passes_test
 
+# Parte Del código En La View De Nuestra APP.
+
 def reg_user(request):
     if request.method == "POST":
         formulario=NewUserForm(request.POST)
