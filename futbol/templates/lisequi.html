@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipos</title>
+</head>
+<body>
+    <!-- Para observar la lista de equipos .-->
+    <h1>Lista de equipos</h1>
+    <a href="{% url 'add_equi' %}"><button>Agregar equipo</button></a>
+    <table>
+        <thead>
+            <tr>
+                <caption>Tabla de equipos</caption>
+                <th>id</th>
+                <th>nombre</th>
+                <th>cuidad</th>
+                <th>pais</th>
+                <th>titulos</th>
+                <th>fundado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for equipo in lisequi %}
+            <tr>
+                <td>{{ equipo.id }}</td>
+                <td>{{ equipo.nombre }}</td>
+                <td>{{ equipo.cuidad }}</td>
+                <td>{{ equipo.pais }}</td>
+                <td>{{ equipo.titulos }}</td>
+                <td>{{ equipo.fundado }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

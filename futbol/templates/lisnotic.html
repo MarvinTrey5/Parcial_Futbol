@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noticias</title>
+</head>
+<body>
+    <!-- Para observar la lista de jugadores .-->
+    <h1>Lista de equipos</h1>
+    <a href="{% url 'add_notic' %}"><button>Agregar jugador</button></a>
+    <table>
+        <thead>
+            <tr>
+                <caption>Tabla de jugadores</caption>
+                <th>id</th>
+                <th>resultado</th>
+                <th>encuentros</th>
+                <th>analisis</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for noticia in lisnotic %}
+            <tr>
+                <td>{{ noticia.id }}</td>
+                <td>{{ noticia.resultado }}</td>
+                <td>{{ noticia.encuentros }}</td>
+                <td>{{ noticia.analisis }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

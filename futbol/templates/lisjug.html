@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugadores</title>
+</head>
+<body>
+    <!-- Para observar la lista de jugadores .-->
+    <h1>Lista de equipos</h1>
+    <a href="{% url 'add_jug' %}"><button>Agregar jugador</button></a>
+    <table>
+        <thead>
+            <tr>
+                <caption>Tabla de jugadores</caption>
+                <th>id</th>
+                <th>nombre</th>
+                <th>apellido</th>
+                <th>nacionalidad</th>
+                <th>fecha_nacimiento</th>
+                <th>perteneceid</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for jugadores in lisjug %}
+            <tr>
+                <td>{{ jugadores.id }}</td>
+                <td>{{ jugadores.nombre }}</td>
+                <td>{{ jugadores.apellido }}</td>
+                <td>{{ jugadores.nacionalidad }}</td>
+                <td>{{ jugadores.fecha_nacimiento }}</td>
+                <td>{{ jugadores.perteneceid }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
