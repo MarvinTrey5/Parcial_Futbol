@@ -1,14 +1,82 @@
-from django.shortcuts import render,redirect,get_object_or_404
-from .formularios.registroform import NewUserForm
-from .formularios.loginform import LoginForm
-from .formularios import add_equi as fm
-from .formularios import add_jug as fm1
-from .formularios import add_notic as fm3
-from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework import permissions,status
+from rest_framework.response import Response
 from .models import Equipos, Jugadores, Noticias
-from django.contrib.auth import authenticate,login,logout
-from django.contrib.auth.decorators import login_required,user_passes_test
+from .serializers import FrameSerialiazer,FrameSerialiazer1,FrameSerialiazer2
 
+# Parte Del código En La View De Nuestra APP.
+
+class InicioView(APIView):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'index.html')
+
+
+
+class APi_Clas(APIView):
+    permission_classes=[permissions.IsAuthenticated]
+    def post(self,request,*args,**kwargs):
+        informacion={
+            "id": request.data.get("id"),
+            "nombre": request.data.get("nombre"),
+            "ciudad": request.data.get("ciudad"),
+            "pais": request.data.get("pais"),
+            "titulos": request.data.get("titulos"),
+            "fundado": request.data.get("fundado")
+        }
+        serializares=FrameSerialiazer(data=informacion)
+        if serializares.is_valid():
+            serializares.save()
+            return Response(serializares.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializares.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get(self,request,*args,**kwargs):
+        frame1=Equipos.objects.all()
+        serializer=FrameSerialiazer(frame1,many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class APi_Clas2(APIView):
+    permission_classes=[permissions.IsAuthenticated]
+    def post(self,request,*args,**kwargs):
+        informacion={
+            "id": request.data.get("id"),
+            "nombre": request.data.get("nombre"),
+            "apellido": request.data.get("apellido"),
+            "nacionalidad": request.data.get("nacionalidad"),
+            "fecha_nacimiento": request.data.get("fecha_nacimiento"),
+            "perteneceid": request.data.get("perteneceid")
+        }
+        serializares=FrameSerialiazer1(data=informacion)
+        if serializares.is_valid():
+            serializares.save()
+            return Response(serializares.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializares.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get(self,request,*args,**kwargs):
+        frame2=Jugadores.objects.all()
+        serializer=FrameSerialiazer1(frame2,many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class APi_Clas3(APIView):
+    permission_classes=[permissions.IsAuthenticated]
+    def post(self,request,*args,**kwargs):
+        informacion={
+            "id": request.data.get("id"),
+            "resultado": request.data.get("resultados"),
+            "encuentros": request.data.get("encuentros"),
+            "analisis": request.data.get("analisis"),
+        }
+        serializares=FrameSerialiazer2(data=informacion)
+        if serializares.is_valid():
+            serializares.save()
+            return Response(serializares.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializares.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get(self,request,*args,**kwargs):
+        frame3=Noticias.objects.all()
+        serializer=FrameSerialiazer2(frame3,many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+"""
 def reg_user(request):
     if request.method == "POST":
         formulario=NewUserForm(request.POST)
@@ -68,8 +136,8 @@ def es_administrador(user):
 # función no acceso
 def sin_permiso(request):
     return render(request, 'sin_permiso.html')
-
-
+"""
+"""
 # Usamos user_passes_test y como parámetros el nombre de la función
 # del administrador, y el login /sin_permiso/ del archivo html si cumple.
 # para añadir equipos,jugadores,noticias.
@@ -139,3 +207,4 @@ def add_notic(request):
     usuario_actual=request.user
     es_admin=usuario_actual.is_authenticated and usuario_actual.is_staff
     return render(request, "Add_notic.html",{"form":formulario, "es_admin":es_admin})
+"""

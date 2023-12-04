@@ -3,10 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Principal</title>
+    <title>Practicando Parcial
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
 </head>
 <body>
-    <h1> Hola Insanos {{user.username }}</h1>
-    <a href="{% url 'logout' %}"> <button>Cerrar sesión</button></a>
+  <!-- Parte de la navegación de los li -->
+  <div class="container">
+    <nav class="row nav-container">
+      <div class="nav-wrapper" style="background-color: #42a5f5;">
+        <a href="#" class="brand-logo"><img class="Golnet A" src="golnet A.jpg" width="65" height="65"></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="Index.html">Inicio</a></li>
+            <li><a href="Form_3.html">Registrarse</a></li>
+            <li><a href="Parcial_2.html">Blog</a></li>
+            <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  
+  
+      <!-- Div que almacena el cards de la imágenes, para la amplitud del div-->
+      <div class="container">
+      <div class="row teal lighten-5">
+        <div class="col s12 m7">
+          <div class="card" style="width: 100%;">
+            <div class="card-image">
+              <div class="row">
+                <div class="col s3">
+                  <img src="botin.jpg" class="responsive-img">
+                </div>
+                <div class="col s3">
+                  <img src="ball 2024.png" class="responsive-img">
+                </div>
+                <div class="col s3">
+                  <img src="cup.jpg" class="responsive-img">
+                </div>
+                <div class="col s3">
+                  <img src="messii.jpg" class="responsive-img">
+                </div>
+              </div>
+              <!-- Le aplicamos un estilo y centrar el texto del card dentro de la primera imagen-->
+              <span style="font-family: Arial; font-size: 14px; display: flex; align-items: center; justify-content: center;"" class="card-title">Card Title</span>
+            </div>
+            <!--Es el párrafo dentro del card -->
+            <div class="card-content">
+              <p>Tu Destino Definitivo para la Pasión del Fútbol</p>
+            </div>
+          </div>
+        </div>
+        <!-- Primero se coloca el párrafo al lado izquierdo para enlazar el div -->
+        <div class="card-content">
+            <h3>Introducción:</h3>
+                <p>En el universo digital, el fútbol no es simplemente un deporte; es una pasión compartida por millones de aficionados en todo el mundo...</p>
+        </div>
+      </div>
+      <!--Se implementa el div, en el segundo card y se le colocan las imágenes -->
+      <div class="row teal lighten-5">
+        <div class="col s12 m5">
+            <div class="card-content">
+                <h2>Explorando GolNet:</h2>
+        
+                <ol>
+                    <p>Comunidad Apasionada:</strong> GolNet no es solo un sitio informativo; es una comunidad vibrante de aficionados al fútbol...</p>
+                </ol>
+            </div>
+        </div>
+        <div class="col s12 m7">
+          <div class="card">
+            <div class="card-image">
+              <div class="row">
+                <div class="col s3">
+                  <img src="messi10.jpg" class="responsive-img">
+                </div>
+                <div class="col s3">
+                  <img src="frente.jpg" class "responsive-img">
+                </div>
+                <div class="col s3">
+                  <img src="cr7.jpg" class="responsive-img">
+                </div>
+                <div class="col s3">
+                  <img src="chuza.jpg" class="responsive-img">
+                </div>
+              </div>
+              <span style="font-family: Arial; font-size: 15px;" class="card-title"></span>
+            </div>
+            <div class="card-content">
+              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Se le configura los datos especificos al grade -->
+      <ul class="collection">
+        <li class="collection-item avatar">
+          <img src="embape.jpg" class="circle">
+          <span class="title">----------------------------------------------------------------------------------------------------------------------------</span>
+          <p>Noticias de Última Hora:<br>
+            GolNet se enorgullece de ofrecer noticias frescas y relevantes sobre los eventos más recientes en el mundo del fútbol...
+          </p>
+          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+        </li>
+        <li class="collection-item avatar">
+          <img src="golnet B.jpg" class="circle">
+          <span class="title">----------------------------------------------------------------------------------------------------------------------------</span>
+          <p> Análisis Profundo: <br>
+            Sumérgete en un análisis detallado de los partidos, estrategias y jugadores destacados...
+          </p>
+          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+        </li>
+        <li class="collection-item avatar">
+          <img src="faker.jpg" alt="" class="circle">
+          <span class="title">----------------------------------------------------------------------------------------------------------------------------</span>
+          <p>Estadísticas y Datos Exclusivos:<br>
+            ¿Te preguntas quién es el máximo goleador de la temporada o cuántos pases clave ha realizado tu mediocampista estrella?...
+          </p>
+          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+        </li>
+      </ul>
+      
+      <!-- Instanciación para el footer  -->
+      <footer class="page-footer" style="background-color: #42a5f5;">
+        <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">Footer Content</h5>
+              <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+              <h5 class="white-text">Links</h5>
+              <ul>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="container">
+          © 2023 Copyright Text
+          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+          </div>
+        </div>
+      </footer>
 </body>
 </html>
