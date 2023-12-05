@@ -51,10 +51,13 @@ def index(request):
 
 @login_required(login_url='login')
 def index(request):
-    es_usuario=request.user.groups.filter(name='Usuario').exists()
-    es_admin=request.user.is_staff
+    es_usuario = request.user.groups.filter(name='Usuario').exists()
+    es_admin = request.user.is_staff
+
     if es_usuario or es_admin:
-        return render(request,'index.html',{'user':request.user,'es_usuario':es_usuario,'es_admin':es_admin})
+        return render(request, 'index.html', {'user': request.user, 'es_usuario': es_usuario, 'es_admin': es_admin})
+    else:
+        return render(request, 'index.html')
 
 # Archivo html para visualizar la lista de equipos y la observaremos en una tabla.
 @user_passes_test(es_administrador,login_url='/sin_permiso/')
