@@ -20,6 +20,10 @@ def reg_user(request):
         return render(request,"Reg_user.html",{"form":formulario})
 def index(request):
     return render(request, 'index.html')
+def es_administrador(user):
+    ver_usuario = user.is_authenticated and user.is_staff
+    print(f"Usuario: {user.username}, ¿Es administrador?: {ver_usuario}")
+    return ver_usuario
 
 # Función para iniciar sesión
 def iniciar_sesion(request):
@@ -53,17 +57,13 @@ def index(request):
         return render(request,'index.html',{'user':request.user,'es_usuario':es_usuario,'es_admin':es_admin})
 
 # Archivo html para visualizar la lista de equipos y la observaremos en una tabla.
+@user_passes_test(es_administrador,login_url='/sin_permiso/')
 def list_equi(request):
     equipos = Equipos.objects.all()
     return render(request, "lisequi.html",{'lisequi':equipos})
 # Establecemos una función para conocer si es administrador
 # al intentar acceder a la url de add_equi,add_jug,add_notic en la terminal dirá si
 # administrador junto con su usuaurio si no no tendrá acceso.
-
-def es_administrador(user):
-    ver_usuario = user.is_authenticated and user.is_staff
-    print(f"Usuario: {user.username}, ¿Es administrador?: {ver_usuario}")
-    return ver_usuario
 
 # función no acceso
 def sin_permiso(request):
@@ -92,6 +92,7 @@ def add_equi(request):
     es_admin=usuario_actual.is_authenticated and usuario_actual.is_staff
     return render(request, "Add_equi.html",{"form":formulario, "es_admin":es_admin})
 # Archivo html para visualizar la lista de jugadores y la observaremos en una tabla.
+@user_passes_test(es_administrador,login_url='/sin_permiso/')
 def list_jug(request):
     jugadores = Jugadores.objects.all()
     return render(request, "lisjug.html",{'lisjug':jugadores})
@@ -107,8 +108,8 @@ def add_jug(request):
             nuejug.apellido=formulario.cleaned_data["apellido"] # La ciudad
             nuejug.nacionalidad=formulario.cleaned_data["nacionalidad"]
             nuejug.fecha_nacimiento=formulario.cleaned_data["fecha_nacimiento"]
-            perteneceid=formulario.cleaned_data["perteneceid"]
-            nuejug.perteneceid=get_object_or_404(Equipos,id=perteneceid)
+            pertenece_id=formulario.cleaned_data["pertenece_id"]
+            nuejug.pertenece_id=get_object_or_404(Equipos,id=pertenece_id)
             nuejug.save()
             return HttpResponseRedirect("/")
     else:
@@ -118,6 +119,7 @@ def add_jug(request):
     return render(request, "Add_jug.html",{"form":formulario, "es_admin":es_admin})
 
 # Archivo html para visualizar la lista de noticias y la observaremos en una tabla.
+@user_passes_test(es_administrador,login_url='/sin_permiso/')
 def list_notic(request):
     noticias = Noticias.objects.all()
     return render(request, "lisnotic.html",{'lisnotic':noticias})

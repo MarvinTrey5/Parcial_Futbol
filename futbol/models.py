@@ -22,7 +22,7 @@ class Jugadores(models.Model):
     apellido = models.CharField(max_length=50)
     nacionalidad = models.CharField(max_length=100)
     fecha_nacimiento = models.DateTimeField()
-    perteneceid = models.ForeignKey(Equipos, on_delete=models.CASCADE)
+    pertenece_id = models.ForeignKey(Equipos, on_delete=models.CASCADE)
     def __str__(self):
         return self.nombre
 

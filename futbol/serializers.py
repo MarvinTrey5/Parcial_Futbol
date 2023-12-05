@@ -9,7 +9,7 @@ class FrameSerialiazer(serializers.ModelSerializer):
 class FrameSerialiazer1(serializers.ModelSerializer):
     class Meta:
         model=Jugadores
-        fields = ["id","nombre","apellido","nacionalidad","fecha_nacimiento","perteneceid"]
+        fields = ["id","nombre","apellido","nacionalidad","fecha_nacimiento","pertenece_id"]
 
 class FrameSerialiazer2(serializers.ModelSerializer):
     class Meta:

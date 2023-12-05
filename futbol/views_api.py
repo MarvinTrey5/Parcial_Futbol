@@ -4,8 +4,14 @@ from rest_framework import permissions,status
 from rest_framework.response import Response
 from .models import Equipos, Jugadores, Noticias
 from .serializers import FrameSerialiazer,FrameSerialiazer1,FrameSerialiazer2
-
+from django.contrib.auth.decorators import user_passes_test
+from django.utils.decorators import method_decorator
 # Parte Del código En La View De Nuestra APP.
+
+def es_administrador(user):
+    ver_usuario = user.is_authenticated and user.is_staff
+    print(f"Usuario: {user.username}, ¿Es administrador?: {ver_usuario}")
+    return ver_usuario
 
 class InicioView(APIView):
     def get(self, request, *args, **kwargs):
@@ -15,6 +21,7 @@ class InicioView(APIView):
 
 class APi_Clas(APIView):
     permission_classes=[permissions.IsAuthenticated]
+    @method_decorator(user_passes_test(es_administrador, login_url='/sin_permiso/'))
     def post(self,request,*args,**kwargs):
         informacion={
             "id": request.data.get("id"),
@@ -30,6 +37,7 @@ class APi_Clas(APIView):
             return Response(serializares.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializares.errors, status=status.HTTP_400_BAD_REQUEST)
+    @method_decorator(user_passes_test(es_administrador, login_url='/sin_permiso/'))
     def get(self,request,*args,**kwargs):
         frame1=Equipos.objects.all()
         serializer=FrameSerialiazer(frame1,many=True)
@@ -37,6 +45,7 @@ class APi_Clas(APIView):
     
 class APi_Clas2(APIView):
     permission_classes=[permissions.IsAuthenticated]
+    @method_decorator(user_passes_test(es_administrador, login_url='/sin_permiso/'))
     def post(self,request,*args,**kwargs):
         informacion={
             "id": request.data.get("id"),
@@ -44,7 +53,7 @@ class APi_Clas2(APIView):
             "apellido": request.data.get("apellido"),
             "nacionalidad": request.data.get("nacionalidad"),
             "fecha_nacimiento": request.data.get("fecha_nacimiento"),
-            "perteneceid": request.data.get("perteneceid")
+            "pertenece_id": request.data.get("pertenece_id")
         }
         serializares=FrameSerialiazer1(data=informacion)
         if serializares.is_valid():
@@ -52,19 +61,21 @@ class APi_Clas2(APIView):
             return Response(serializares.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializares.errors, status=status.HTTP_400_BAD_REQUEST)
+    @method_decorator(user_passes_test(es_administrador, login_url='/sin_permiso/'))
     def get(self,request,*args,**kwargs):
         frame2=Jugadores.objects.all()
         serializer=FrameSerialiazer1(frame2,many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
 class APi_Clas3(APIView):
     permission_classes=[permissions.IsAuthenticated]
+    @method_decorator(user_passes_test(es_administrador, login_url='/sin_permiso/'))
     def post(self,request,*args,**kwargs):
         informacion={
             "id": request.data.get("id"),
             "resultado": request.data.get("resultados"),
             "encuentros": request.data.get("encuentros"),
-            "analisis": request.data.get("analisis"),
+            "analisis": request.data.get("analisis")
         }
         serializares=FrameSerialiazer2(data=informacion)
         if serializares.is_valid():
@@ -72,6 +83,7 @@ class APi_Clas3(APIView):
             return Response(serializares.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializares.errors, status=status.HTTP_400_BAD_REQUEST)
+    @method_decorator(user_passes_test(es_administrador, login_url='/sin_permiso/'))
     def get(self,request,*args,**kwargs):
         frame3=Noticias.objects.all()
         serializer=FrameSerialiazer2(frame3,many=True)

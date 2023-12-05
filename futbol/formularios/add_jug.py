@@ -6,4 +6,4 @@ class Add_jugad(forms.Form):
     apellido=forms.CharField(max_length=100)
     nacionalidad=forms.CharField(max_length=100)
     fecha_nacimiento=forms.DateTimeField()
-    perteneid=forms.IntegerField()
+    pertenece_id=forms.IntegerField()

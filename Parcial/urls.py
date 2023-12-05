@@ -21,9 +21,9 @@ import futbol.urls as api
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include(api)),
-    path('api-aut/',include('rest_framework.urls')),
+    path('api-aut',include('rest_framework.urls')),
     path('inicio/',ap1.index,name="home"),
-    path('registro/',ap1.reg_user),
+    path('registro/',ap1.reg_user,name='registro'),
     path('login/',ap1.iniciar_sesion,name="login"),
     path('logout/',ap1.cerrar_sesion,name='logout'),
     path('add_equi/',ap1.add_equi,name='add_equi'),
