@@ -9,6 +9,7 @@ from .models import Equipos, Jugadores, Noticias
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required,user_passes_test
 
+# Se crea la función para registrar un usuario.
 def reg_user(request):
     if request.method == "POST":
         formulario=NewUserForm(request.POST)
@@ -18,8 +19,10 @@ def reg_user(request):
     else:
         formulario=NewUserForm()
         return render(request,"Reg_user.html",{"form":formulario})
+# Se crea una función para el inicio principal de la página.
 def index(request):
     return render(request, 'index.html')
+# Se crea una función para conocer si es administrador.
 def es_administrador(user):
     ver_usuario = user.is_authenticated and user.is_staff
     print(f"Usuario: {user.username}, ¿Es administrador?: {ver_usuario}")
@@ -45,17 +48,23 @@ def cerrar_sesion(request):
     logout(request)
     return redirect('login')
 
+# Se utliza login_required para que se guarde el usuario registrado acceda
+# a la página principal.
 @login_required(login_url=login)
 def index(request):
     return render(request,'index.html',{'user':request.user})
 
+# Cuando el usuario ingrese su usuario y su contraseña. 
 @login_required(login_url='login')
 def index(request):
     es_usuario = request.user.groups.filter(name='Usuario').exists()
     es_admin = request.user.is_staff
-
+    # Establecemos una condición si es ausuario o admiinistrador entrará 
+    # a la página principal.
     if es_usuario or es_admin:
         return render(request, 'index.html', {'user': request.user, 'es_usuario': es_usuario, 'es_admin': es_admin})
+    # Si no es ni usuario o administrador simplemente se le mostrará
+    # la página principal.
     else:
         return render(request, 'index.html')
 
