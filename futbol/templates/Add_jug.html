@@ -104,20 +104,27 @@
             background-color: white;
             margin-bottom: 12px;
         }
-        #id_pertenece_id{
-            width: 50px;
-            height: 30px;
+        .select-wrapper{
+            width: 270px;
             color: black;
             box-shadow: 3px 3px 3px 3px black;
             background-color: white;
             margin-bottom: 12px;
+        }
+        .select-wrapper input[type="text"] ~ ul.dropdown-content li {
+            color: white;
+            background-color: blue;
+            transition: background-color 0.3s;
+        }
+        .select-wrapper input[type="text"] ~ ul.dropdown-content li:hover {
+            background-color: white;
         }
         .btn-primary{
             width: 270px;
             font-family: cursive;
             font-size: 18px;
             text-align: center;
-            margin: 10px auto;
+            margin: 120px auto;
             border-radius: 1.5em;
             color: white;
             text-shadow: 2px 2px 2px black;
@@ -187,5 +194,11 @@
               </div>
             </div>
           </footer>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('select');
+                var instances = M.FormSelect.init(elems);
+            });
+        </script>
 </body>
 </html>

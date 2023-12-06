@@ -112,7 +112,7 @@ def add_jug(request):
             nuejug.nacionalidad=formulario.cleaned_data["nacionalidad"]
             nuejug.fecha_nacimiento=formulario.cleaned_data["fecha_nacimiento"]
             pertenece_id=formulario.cleaned_data["pertenece_id"]
-            nuejug.pertenece_id=get_object_or_404(Equipos,id=pertenece_id)
+            nuejug.pertenece_id=pertenece_id
             nuejug.save()
             return HttpResponseRedirect("/")
     else:

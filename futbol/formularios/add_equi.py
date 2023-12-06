@@ -6,4 +6,4 @@ class Add_Equi(forms.Form):
     ciudad=forms.CharField(max_length=100)
     pais=forms.CharField(max_length=80)
     titulos=forms.IntegerField()
-    fundado=forms.DateTimeField()
+    fundado=forms.DateField()
