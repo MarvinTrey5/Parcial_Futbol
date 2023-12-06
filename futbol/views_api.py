@@ -2,25 +2,36 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import permissions,status
 from rest_framework.response import Response
+# Se importan los modulos Equipos, Jugadores,Noticias
+# para acceder a ellos.
 from .models import Equipos, Jugadores, Noticias
+# Se importa el archivo serializer de nuestra app.
 from .serializers import FrameSerialiazer,FrameSerialiazer1,FrameSerialiazer2
+# Se utiliza tanto user_passes_test y el method_decorator para
+# que evalue si el usuario es administrador o no.
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 # Parte Del código En La View De Nuestra APP.
 
+# Confirmar si el usuario es administrador
 def es_administrador(user):
+    # Mostramos en terminal si lo es.
     ver_usuario = user.is_authenticated and user.is_staff
     print(f"Usuario: {user.username}, ¿Es administrador?: {ver_usuario}")
     return ver_usuario
 
+# Home de las api
 class InicioView(APIView):
     def get(self, request, *args, **kwargs):
         return render(request, 'index.html')
 
 
-
+# La primera Api
 class APi_Clas(APIView):
     permission_classes=[permissions.IsAuthenticated]
+    # Aquí se utiliza el method_decorator y el user_passes_test y se le pasa como parámetro
+    # la función del administrador seguidamente confirmando hacia donde lo enviará si no lo es
+    # es decir a un página que no tendrá acceso.
     @method_decorator(user_passes_test(es_administrador, login_url='/sin_permiso/'))
     def post(self,request,*args,**kwargs):
         informacion={
@@ -37,12 +48,15 @@ class APi_Clas(APIView):
             return Response(serializares.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializares.errors, status=status.HTTP_400_BAD_REQUEST)
+    # Se utiliza también para la función get.
+    # Esto aplica para todas las Api.
     @method_decorator(user_passes_test(es_administrador, login_url='/sin_permiso/'))
     def get(self,request,*args,**kwargs):
         frame1=Equipos.objects.all()
         serializer=FrameSerialiazer(frame1,many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
+# La segunda Api    
 class APi_Clas2(APIView):
     permission_classes=[permissions.IsAuthenticated]
     @method_decorator(user_passes_test(es_administrador, login_url='/sin_permiso/'))
@@ -67,6 +81,7 @@ class APi_Clas2(APIView):
         serializer=FrameSerialiazer1(frame2,many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+# La tercera Api
 class APi_Clas3(APIView):
     permission_classes=[permissions.IsAuthenticated]
     @method_decorator(user_passes_test(es_administrador, login_url='/sin_permiso/'))
