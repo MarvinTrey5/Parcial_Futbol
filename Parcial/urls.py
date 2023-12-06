@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path,include
 from futbol import views as ap1
 import futbol.urls as api
-
+# Se configuran las url de la api 
+# y las url de las páginas de html.
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include(api)),
