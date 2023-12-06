@@ -1,6 +1,7 @@
 from django.db import models
 from django.db import models
 from django.contrib.auth.models import Group,User
+# Se mostrará tipo select cuando la persona se registre.
 Group.objects.get_or_create(name='Usuario')
 Group.objects.get_or_create(name='Administrador')
 
